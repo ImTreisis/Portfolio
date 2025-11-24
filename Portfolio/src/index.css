@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-cyber-card;
+  }
+  
+  body {
+    @apply bg-cyber-darker text-white font-cyber;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-neon-pink {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+  }
+  
+  .text-neon-blue {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  }
+  
+  .text-neon-purple {
+    color: #9d00ff;
+    text-shadow: 0 0 10px #9d00ff, 0 0 20px #9d00ff, 0 0 30px #9d00ff;
+  }
+  
+  .text-neon-cyan {
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+  }
+
+  .border-neon-pink {
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  
+  .border-neon-blue {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+  }
+  
+  .border-neon-purple {
+    border-color: #9d00ff;
+    box-shadow: 0 0 10px #9d00ff;
+  }
+  
+  .border-neon-cyan {
+    border-color: #00ffcc;
+    box-shadow: 0 0 10px #00ffcc;
+  }
+
+  .glow-hover:hover {
+    @apply transition-all duration-300;
+    filter: brightness(1.2);
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9d00ff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff00ff;
+}
