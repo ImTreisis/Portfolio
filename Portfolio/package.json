@@ -16,6 +16,7 @@
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "framer-motion": "^11.18.2",
+    "nodemailer": "^6.9.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^6.30.2"
