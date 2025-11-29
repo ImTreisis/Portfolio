@@ -1,53 +1,23 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Gmail SMTP configuration with explicit settings for cloud environments
-// Try port 465 (SSL) first, fallback to 587 (TLS) if needed
-// You can override via environment variable: SMTP_PORT=465 or SMTP_PORT=587
-const smtpPort = parseInt(process.env.SMTP_PORT) || 465; // Default to 465 (SSL) for better cloud compatibility
-const useSSL = smtpPort === 465;
+// Initialize Resend (works great from cloud platforms like Render)
+// Get your API key from https://resend.com/api-keys
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const mailTransporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: smtpPort,
-  secure: useSSL, // true for 465, false for other ports
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD, // Use App Password, not regular password
-  },
-  tls: {
-    // Do not fail on invalid certs (useful for some cloud environments)
-    rejectUnauthorized: false,
-  },
-  connectionTimeout: 20000, // 20 seconds (increased for cloud)
-  greetingTimeout: 20000,
-  socketTimeout: 20000,
-  // Retry configuration
-  pool: true,
-  maxConnections: 1,
-  maxMessages: 3,
-  // Additional options for cloud environments
-  requireTLS: !useSSL, // Require TLS only if not using SSL
-  debug: process.env.NODE_ENV === 'development', // Enable debug in development
-});
-
-// Verify connection asynchronously (non-blocking)
-// This won't block server startup if there's a connection issue
-mailTransporter.verify((err, success) => {
-  if (err) {
-    console.warn('⚠️  Nodemailer verification failed (will retry on first send):', err.message);
-    console.log('📧 Email service will attempt connection when first email is sent');
-  } else {
-    console.log('✅ Mail server ready to send messages');
-  }
-});
+// Verify Resend is configured
+if (!process.env.RESEND_API_KEY) {
+  console.warn('⚠️  RESEND_API_KEY not set. Email functionality will not work.');
+} else {
+  console.log('✅ Resend email service initialized');
+}
 
 // Middleware
 app.use(cors());
@@ -79,13 +49,24 @@ app.post('/contact', async (req, res) => {
       return text.replace(/[&<>"']/g, (m) => map[m]);
     };
 
-    // Send email with timeout handling
-    const mailOptions = {
-      from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER, // Send to your own Gmail
+    // Get recipient email (your email where you want to receive messages)
+    const recipientEmail = process.env.CONTACT_EMAIL;
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    
+    if (!recipientEmail) {
+      throw new Error('CONTACT_EMAIL environment variable not set');
+    }
+    
+    if (!fromEmail) {
+      throw new Error('RESEND_FROM_EMAIL environment variable not set');
+    }
+
+    // Send email using Resend
+    const { error } = await resend.emails.send({
+      from: fromEmail,
+      to: recipientEmail, // Your email where you want to receive messages
       replyTo: email, // So you can reply directly to the sender
       subject: `New portfolio message from ${escapeHtml(name)}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #4a5568; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
@@ -101,15 +82,11 @@ app.post('/contact', async (req, res) => {
           </div>
         </div>
       `,
-    };
-
-    // Send email with promise timeout
-    const sendEmailPromise = mailTransporter.sendMail(mailOptions);
-    const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Email send timeout after 15 seconds')), 15000);
     });
 
-    await Promise.race([sendEmailPromise, timeoutPromise]);
+    if (error) {
+      throw error;
+    }
 
     res.json({
       success: true,
@@ -118,22 +95,13 @@ app.post('/contact', async (req, res) => {
   } catch (error) {
     console.error('Failed to send contact email:', error);
     console.error('Error details:', {
-      code: error.code,
-      command: error.command,
       message: error.message,
+      name: error.name,
     });
-    
-    // More specific error messages
-    let errorMessage = 'Failed to send your message. Please try again later.';
-    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
-      errorMessage = 'Connection to email service timed out. Please try again.';
-    } else if (error.code === 'EAUTH') {
-      errorMessage = 'Email authentication failed. Please contact the site administrator.';
-    }
     
     res.status(500).json({
       success: false,
-      message: errorMessage,
+      message: 'Failed to send your message. Please try again later.',
     });
   }
 });
