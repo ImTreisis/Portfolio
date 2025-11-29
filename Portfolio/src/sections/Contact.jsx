@@ -25,8 +25,11 @@ const Contact = () => {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
+
+    const API_URL = 'https://portfolio-pzo8.onrender.com';
+    
     try {
-      const response = await fetch('http://localhost:3001/contact', {
+      const response = await fetch(`${API_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
