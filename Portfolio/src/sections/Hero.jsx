@@ -32,7 +32,7 @@ const Hero = () => {
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/Treisis+Gakas+CV.pdf';
+    link.href = '/Treisis+CV+Web+Dev.pdf';
     link.download = 'Treisis_Gakas_CV.pdf';
     document.body.appendChild(link);
     link.click();
