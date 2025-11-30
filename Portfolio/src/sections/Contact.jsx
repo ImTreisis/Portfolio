@@ -156,7 +156,7 @@ const Contact = () => {
                 className="w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? 'Sending... Please wait for server' : 'Send Message'}
               </Button>
             </form>
           </Card>
