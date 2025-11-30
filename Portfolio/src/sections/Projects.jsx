@@ -129,24 +129,26 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex gap-2 flex-wrap">
-                  <Button
-                    variant="purple"
-                    className={`flex-1 text-sm py-2 ${
-                      !project.link ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (project.link) {
-                        window.open(project.link, '_blank');
-                      }
-                    }}
-                    disabled={!project.link}
-                  >
-                    {project.link ? 'Live Demo' : project.isUpcoming ? 'In Progress' : 'Live Soon'}
-                  </Button>
+                  {project.id !== 3 && (
+                    <Button
+                      variant="purple"
+                      className={`flex-1 text-sm py-2 ${
+                        !project.link ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (project.link) {
+                          window.open(project.link, '_blank');
+                        }
+                      }}
+                      disabled={!project.link}
+                    >
+                      {project.link ? 'Live Demo' : project.isUpcoming ? 'In Progress' : 'Live Soon'}
+                    </Button>
+                  )}
                   <Button
                     variant="cyan"
-                    className={`flex-1 text-sm py-2 ${
+                    className={`${project.id === 3 ? 'flex-1' : 'flex-1'} text-sm py-2 ${
                       !project.github ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                     onClick={(e) => {
@@ -209,14 +211,16 @@ const Projects = () => {
                   </div>
                 </div>
                 <div className="flex gap-4 flex-wrap">
-                  <Button
-                    variant="purple"
-                    onClick={() => selectedProject.link && window.open(selectedProject.link, '_blank')}
-                    disabled={!selectedProject.link}
-                    className={!selectedProject.link ? 'opacity-50 cursor-not-allowed' : ''}
-                  >
-                    {selectedProject.link ? 'View Live' : 'Coming Soon'}
-                  </Button>
+                  {selectedProject.id !== 3 && (
+                    <Button
+                      variant="purple"
+                      onClick={() => selectedProject.link && window.open(selectedProject.link, '_blank')}
+                      disabled={!selectedProject.link}
+                      className={!selectedProject.link ? 'opacity-50 cursor-not-allowed' : ''}
+                    >
+                      {selectedProject.link ? 'View Live' : 'Coming Soon'}
+                    </Button>
+                  )}
                   <Button
                     variant="cyan"
                     onClick={() =>
