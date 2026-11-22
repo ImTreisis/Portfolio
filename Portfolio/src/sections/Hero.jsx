@@ -1,157 +1,64 @@
 import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
-import Button from '../components/Button';
 
-const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
+const Arrow = () => <span aria-hidden="true">↗</span>;
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Treisis+CV+Web+Dev.pdf';
-    link.download = 'Treisis_Gakas_CV.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  return (
-    <SectionWrapper id="home" className="flex items-center justify-center">
+const Hero = () => (
+  <SectionWrapper id="home" className="flex items-center !min-h-[92vh] !pt-28 !pb-16">
+    <div className="grid w-full items-center gap-14 lg:grid-cols-[1.12fr_.88fr] lg:gap-20">
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="text-center z-10"
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: .65, ease: 'easeOut' }}
+        className="order-2 lg:order-1"
       >
-        {/* Profile Image */}
-        <motion.div
-          variants={itemVariants}
-          className="mb-8 flex justify-center"
-        >
-          <motion.div
-            className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-neon-pink shadow-neon-pink"
-            whileHover={{ scale: 1.05 }}
-            animate={{
-              boxShadow: [
-                '0 0 20px #ff00ff, 0 0 40px #ff00ff',
-                '0 0 30px #ff00ff, 0 0 60px #ff00ff',
-                '0 0 20px #ff00ff, 0 0 40px #ff00ff',
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            <img
-              src="/Treisis.jpeg"
-              alt="Treisis Gakas"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Animated Text */}
-        <motion.h1
-          variants={itemVariants}
-          className="text-5xl md:text-7xl font-bold mb-4"
-        >
-          <span className="text-neon-cyan">Hello, I'm</span>
-          <br />
-          <motion.span
-            className="text-neon-pink inline-block"
-            animate={{
-              textShadow: [
-                '0 0 10px #ff00ff, 0 0 20px #ff00ff',
-                '0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff',
-                '0 0 10px #ff00ff, 0 0 20px #ff00ff',
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            Treisis Gakas
-          </motion.span>
-        </motion.h1>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-xl md:text-2xl text-gray-300 mb-2"
-        >
-          <span className="text-neon-purple">Full Stack Developer</span>
-        </motion.p>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto"
-        >
-        
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <Button variant="pink" onClick={scrollToContact}>
-            Get In Touch
-          </Button>
-          <Button variant="cyan" onClick={downloadResume}>
-            Download Resume
-          </Button>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-16"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-neon-cyan cursor-pointer"
-            onClick={() => {
-              const element = document.getElementById('about');
-              if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.div>
-        </motion.div>
+        <div className="eyebrow mb-7 flex items-center gap-3">
+          <span className="inline-block h-2 w-2 animate-pulse bg-[#f4e400]" />
+          London, UK&nbsp; / &nbsp;Available for opportunities
+        </div>
+        <p className="section-label mb-5">Full stack developer · independent builder</p>
+        <h1 className="display-title mb-7 text-[clamp(4.4rem,10vw,8.8rem)]">
+          Treisis<br />
+          <span className="text-[#f4e400]">Gakas</span>
+          <span className="ml-3 align-top font-mono text-2xl font-normal tracking-normal text-white/35">©</span>
+        </h1>
+        <p className="max-w-xl text-base leading-8 text-[#aaa9a2] md:text-lg">
+          I build useful digital products from the first sketch to the final deploy. Product-minded, full-stack, and happiest turning messy problems into clean experiences.
+        </p>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <a href="#projects" className="signal-button">Explore selected work <Arrow /></a>
+          <a href="#contact" className="outline-button">Let’s talk</a>
+        </div>
+        <div className="mt-14 grid max-w-xl grid-cols-3 border-y border-white/10 py-5">
+          <div><span className="eyebrow block text-[.6rem] text-white/40">Focus</span><span className="mt-2 block text-sm">Web products</span></div>
+          <div><span className="eyebrow block text-[.6rem] text-white/40">Approach</span><span className="mt-2 block text-sm">End to end</span></div>
+          <div><span className="eyebrow block text-[.6rem] text-white/40">Currently</span><span className="mt-2 block text-sm">Building SysManager</span></div>
+        </div>
       </motion.div>
-    </SectionWrapper>
-  );
-};
+
+      <motion.div
+        initial={{ opacity: 0, x: 25 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: .8, delay: .15 }}
+        className="order-1 mx-auto w-[min(72%,340px)] lg:order-2 lg:w-full lg:max-w-[410px]"
+      >
+        <div className="photo-frame">
+          <div className="relative aspect-[4/5] overflow-hidden bg-[#171a18]">
+            <img src="/Treisis.jpeg" alt="Treisis Gakas" className="h-full w-full object-cover object-center grayscale-[.2]" />
+            <div className="scanline absolute inset-0" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-20">
+              <span className="eyebrow text-[.62rem]">Independent mind. Collective future.</span>
+            </div>
+          </div>
+          <span className="absolute -left-9 top-7 -rotate-90 origin-bottom-right eyebrow text-[.58rem] text-white/40">Personal archive · 2026</span>
+          <span className="absolute -right-5 -top-5 flex h-14 w-14 items-center justify-center bg-[#f4e400] font-mono text-lg font-bold text-[#0b0c0c]">TG</span>
+        </div>
+        <div className="mt-8 flex items-center justify-between font-mono text-[.62rem] uppercase tracking-[.16em] text-white/40">
+          <span>Figure 01 — The builder</span><span>51°30′N / 0°07′W</span>
+        </div>
+      </motion.div>
+    </div>
+  </SectionWrapper>
+);
 
 export default Hero;
-

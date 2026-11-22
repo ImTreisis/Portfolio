@@ -1,98 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navItems = [ ['about', 'About'], ['projects', 'Work'], ['contact', 'Contact'] ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'projects', 'contact'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 28);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-cyber-dark/90 backdrop-blur-md shadow-neon-purple' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold text-neon-cyan cursor-pointer"
-            onClick={() => scrollToSection('home')}
-          >
-            {'Portfolio'}
-          </motion.div>
-
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="relative text-lg font-medium transition-colors duration-300"
-                whileHover={{ scale: 1.1 }}
-              >
-                <span className={activeSection === item.id ? 'text-neon-pink' : 'text-gray-300 hover:text-neon-cyan'}>
-                  {item.label}
-                </span>
-                {activeSection === item.id && (
-                  <motion.div
-                    layoutId="activeSection"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-neon-pink shadow-neon-pink"
-                    initial={false}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <button className="md:hidden text-neon-cyan">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+    <motion.nav initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: .45 }} className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${scrolled ? 'border-white/10 bg-[#0b0c0c]/90 backdrop-blur-xl' : 'border-transparent bg-[#0b0c0c]/60 backdrop-blur-sm'}`}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
+        <a href="#home" aria-label="Treisis Gakas, home" className="group flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center bg-[#f4e400] font-mono text-sm font-bold text-[#0b0c0c]">TG</span>
+          <span className="font-mono text-xs font-bold uppercase tracking-[.14em] text-white">Treisis Gakas<span className="text-[#f4e400]">.</span></span>
+        </a>
+        <div className="hidden items-center gap-8 md:flex">
+          {navItems.map(([id, label], index) => <a key={id} href={`#${id}`} className="font-mono text-[.67rem] font-bold uppercase tracking-[.13em] text-white/55 transition hover:text-[#f4e400]"><span className="mr-2 text-white/25">0{index + 1}</span>{label}</a>)}
+          <a href="/Treisis%20Gakas.pdf" download="Treisis_Gakas_CV.pdf" className="border border-white/20 px-4 py-2 font-mono text-[.62rem] font-bold uppercase tracking-wider text-white transition hover:border-[#f4e400] hover:text-[#f4e400]">Resume ↓</a>
         </div>
+        <button type="button" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setMenuOpen(!menuOpen)} className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-white/15 md:hidden">
+          <span className={`h-px w-4 bg-[#f4e400] transition-transform ${menuOpen ? 'translate-y-[4px] rotate-45' : ''}`} />
+          <span className={`h-px w-4 bg-[#f4e400] transition-transform ${menuOpen ? '-translate-y-[3px] -rotate-45' : ''}`} />
+        </button>
       </div>
+      {menuOpen && <div className="border-t border-white/10 bg-[#0b0c0c] px-6 py-5 md:hidden">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4">
+          {navItems.map(([id, label], index) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)} className="font-mono text-xs font-bold uppercase tracking-[.14em] text-white/70"><span className="mr-3 text-[#f4e400]">0{index + 1}</span>{label}</a>)}
+          <a href="/Treisis%20Gakas.pdf" download="Treisis_Gakas_CV.pdf" className="font-mono text-xs font-bold uppercase tracking-[.14em] text-[#f4e400]">Download resume ↓</a>
+        </div>
+      </div>}
     </motion.nav>
   );
 };
 
 export default Navbar;
-
-

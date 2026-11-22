@@ -8,25 +8,25 @@ export default {
     extend: {
       colors: {
         neon: {
-          pink: '#ff00ff',
-          blue: '#00ffff',
-          purple: '#9d00ff',
-          cyan: '#00ffcc',
-          magenta: '#ff0080',
+          pink: '#f4e400',
+          blue: '#d5d1c7',
+          purple: '#b7a97c',
+          cyan: '#f4f0e8',
+          magenta: '#f4e400',
         },
         cyber: {
-          dark: '#0a0a0f',
-          darker: '#050508',
-          card: '#0f0f1a',
+          dark: '#111313',
+          darker: '#0b0c0c',
+          card: '#151817',
         }
       },
       boxShadow: {
-        'neon-pink': '0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff',
-        'neon-blue': '0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff',
-        'neon-purple': '0 0 10px #9d00ff, 0 0 20px #9d00ff, 0 0 30px #9d00ff',
-        'neon-cyan': '0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc',
-        'neon-magenta': '0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080',
-        'neon-glow': '0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor',
+        'neon-pink': '0 5px 24px rgba(244, 228, 0, .12)',
+        'neon-blue': '0 5px 24px rgba(244, 240, 232, .08)',
+        'neon-purple': '0 5px 24px rgba(183, 169, 124, .09)',
+        'neon-cyan': '0 5px 24px rgba(244, 240, 232, .08)',
+        'neon-magenta': '0 5px 24px rgba(244, 228, 0, .12)',
+        'neon-glow': '0 0 0 transparent',
       },
       animation: {
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
@@ -52,8 +52,8 @@ export default {
         },
       },
       fontFamily: {
-        cyber: ['Orbitron', 'monospace'],
-        body: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+        cyber: ['Barlow Condensed', 'Impact', 'sans-serif'],
+        body: ['DM Sans', 'Inter', 'sans-serif'],
       },
     },
   },
