@@ -32,8 +32,8 @@ const Contact = () => {
     <SectionWrapper id="contact" className="!min-h-0 !py-28 md:!py-36">
       <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .55 }}>
         <div className="mb-12 md:mb-16">
-          <p className="section-label mb-5">Open channel</p>
-          <h2 className="display-title text-6xl md:text-8xl">Have a good<br /><span className="text-[#f4e400]">one in mind?</span></h2>
+          <p className="section-label mb-5">Contact</p>
+          <h2 className="display-title text-6xl md:text-8xl">Opportunities<br /><span className="text-[#f4e400]">ahead?</span></h2>
         </div>
         <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
           <div>

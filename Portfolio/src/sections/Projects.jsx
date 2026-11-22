@@ -51,13 +51,37 @@ const Projects = () => (
               <ExternalLink href="https://github.com/ImTreisis/SysManager" className="inline-flex items-center border border-black/30 px-5 py-3 font-mono text-xs font-bold uppercase tracking-wider transition hover:bg-black/5">Source on GitHub</ExternalLink>
             </div>
           </div>
-          <div className="relative hidden min-h-64 border border-black/15 bg-black/[.045] p-5 lg:block">
-            <div className="flex justify-between border-b border-black/15 pb-3 font-mono text-[.62rem] uppercase tracking-wider text-black/55"><span>SYS / MANAGER</span><span>01.0.26</span></div>
-            <div className="mt-8 flex items-end gap-2" aria-hidden="true">
-              {[44, 70, 52, 86, 63, 100, 75, 92, 56, 79, 96, 67].map((height, index) => <div key={index} style={{ height: `${height}px` }} className={`flex-1 ${index === 5 ? 'bg-[#0b0c0c]' : 'bg-black/20'}`} />)}
+          <div className="min-w-0 border border-black/15 bg-black/[.045] p-3 sm:p-5">
+            <div className="border border-white/10 bg-[#101311] p-4 text-[#f4f0e8] shadow-xl sm:p-5">
+              <div className="mb-4 flex items-center justify-between gap-2 border-b border-white/10 pb-3">
+                <div><p className="font-mono text-[.62rem] font-bold uppercase tracking-[.12em]">SysManager</p><p className="mt-1 font-mono text-[.52rem] uppercase tracking-wider text-white/40">Local system overview</p></div>
+                <span className="shrink-0 border border-[#f4e400]/35 px-2 py-1 font-mono text-[.5rem] font-bold uppercase tracking-wider text-[#f4e400]">Sample data</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="border border-white/[.08] bg-white/[.035] p-3">
+                  <div className="flex items-center justify-between"><span className="font-mono text-[.52rem] uppercase tracking-wider text-white/50">CPU</span><span className="h-1.5 w-1.5 rounded-full bg-[#f4e400]" /></div>
+                  <p className="mt-2 font-mono text-xl font-bold">24<span className="text-sm text-white/50">%</span></p>
+                  <div className="mt-2 h-1 bg-white/10"><div className="h-full w-[24%] bg-[#f4e400]" /></div>
+                </div>
+                <div className="border border-white/[.08] bg-white/[.035] p-3">
+                  <div className="flex items-center justify-between"><span className="font-mono text-[.52rem] uppercase tracking-wider text-white/50">Memory</span><span className="h-1.5 w-1.5 rounded-full bg-[#69d5bd]" /></div>
+                  <p className="mt-2 font-mono text-xl font-bold">8.4<span className="text-sm text-white/50"> GB</span></p>
+                  <div className="mt-2 h-1 bg-white/10"><div className="h-full w-[53%] bg-[#69d5bd]" /></div>
+                </div>
+                <div className="border border-white/[.08] bg-white/[.035] p-3">
+                  <span className="font-mono text-[.52rem] uppercase tracking-wider text-white/50">CPU temp</span>
+                  <p className="mt-2 font-mono text-xl font-bold">49<span className="text-sm text-white/50">°C</span></p>
+                </div>
+                <div className="border border-white/[.08] bg-white/[.035] p-3">
+                  <span className="font-mono text-[.52rem] uppercase tracking-wider text-white/50">GPU temp</span>
+                  <p className="mt-2 font-mono text-xl font-bold">42<span className="text-sm text-white/50">°C</span></p>
+                </div>
+              </div>
+              <div className="mt-3 border border-white/[.08] bg-white/[.025] px-3 py-2.5">
+                <div className="mb-2 flex items-center justify-between font-mono text-[.5rem] uppercase tracking-wider text-white/45"><span>Top processes</span><span>CPU</span></div>
+                <div className="space-y-2 font-mono text-[.57rem]"><div className="flex justify-between"><span className="text-white/75">browser.exe</span><span>9.2%</span></div><div className="flex justify-between"><span className="text-white/75">System</span><span>4.8%</span></div></div>
+              </div>
             </div>
-            <div className="mt-5 flex justify-between font-mono text-[.58rem] uppercase tracking-wider text-black/45"><span>Control the moving parts.</span><span>▲</span></div>
-            <div className="absolute right-5 top-16 h-2 w-2 animate-pulse rounded-full bg-[#0b0c0c]" />
           </div>
         </div>
       </article>

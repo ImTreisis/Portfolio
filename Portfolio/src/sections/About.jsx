@@ -30,10 +30,6 @@ const About = () => (
           <div className="flex flex-wrap gap-2.5">
             {skills.map((skill) => <span key={skill} className="border border-white/10 px-3 py-2 font-mono text-xs text-white/75">{skill}</span>)}
           </div>
-          <div className="mt-9 border-t border-white/10 pt-5">
-            <p className="font-mono text-[.62rem] uppercase tracking-[.13em] text-white/40">Working style</p>
-            <p className="mt-2 text-sm text-[#aaa9a2]">Ship early · listen closely · keep improving</p>
-          </div>
         </div>
       </div>
 
